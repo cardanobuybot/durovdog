@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>durov.dog — the pedigree memecoin</title>
+<meta name="description" content="durov.dog — a parody memecoin. Registered good boy. Not affiliated with any person or company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,700;6..96,900&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0F141C;
+    --ink-soft:#1A2230;
+    --paper:#F2EDE2;
+    --paper-line:#D8CFBC;
+    --stamp:#B93A31;
+    --seal:#B08A2E;
+    --muted:#8A8578;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:"Inter",system-ui,sans-serif;
+    font-size:16px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(900px 600px at 50% -10%, rgba(176,138,46,.14), transparent 65%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.018) 0 1px, transparent 1px 4px);
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+
+  /* --- topbar --- */
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:18px 0;border-bottom:1px solid rgba(242,237,226,.12);
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  }
+  .topbar b{font-weight:600}
+  .topbar .reg{color:var(--muted)}
+  .topbar a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(242,237,226,.35);padding-bottom:2px}
+  .topbar a:hover{border-color:var(--seal);color:var(--seal)}
+
+  /* --- hero: the certificate --- */
+  .hero{padding:56px 0 72px}
+  .eyebrow{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.24em;
+    text-transform:uppercase;color:var(--seal);margin:0 0 18px
+  }
+  .cert{
+    position:relative;
+    background:var(--paper);
+    color:var(--ink);
+    border-radius:2px;
+    padding:38px 32px 30px;
+    box-shadow:0 30px 70px rgba(0,0,0,.55), 0 2px 0 rgba(255,255,255,.06);
+    background-image:
+      repeating-linear-gradient(0deg, rgba(15,20,28,.035) 0 1px, transparent 1px 26px);
+  }
+  .cert::before{
+    content:"";position:absolute;inset:10px;border:1px solid var(--paper-line);
+    border-radius:1px;pointer-events:none;
+  }
+  .cert::after{
+    content:"";position:absolute;inset:14px;border:3px double rgba(15,20,28,.18);
+    border-radius:1px;pointer-events:none;
+  }
+  .cert-inner{position:relative;z-index:2}
+  .cert-head{
+    text-align:center;font-family:"IBM Plex Mono",monospace;font-size:11px;
+    letter-spacing:.28em;text-transform:uppercase;color:#5C5648;
+  }
+  h1{
+    font-family:"Bodoni Moda",serif;font-weight:900;
+    font-size:clamp(46px,11vw,104px);line-height:.92;letter-spacing:-.02em;
+    margin:14px 0 6px;text-align:center;
+  }
+  h1 .dot{color:var(--stamp)}
+  .tagline{
+    text-align:center;font-family:"Bodoni Moda",serif;font-style:italic;
+    font-size:clamp(17px,3.4vw,24px);color:#3A3629;margin:0 0 26px
+  }
+  .cert-grid{
+    display:grid;grid-template-columns:1fr 260px 1fr;gap:24px;align-items:center;
+    border-top:1px solid var(--paper-line);border-bottom:1px solid var(--paper-line);
+    padding:22px 0;margin-bottom:24px;
+  }
+  .dog{width:100%;display:block;filter:drop-shadow(0 12px 18px rgba(15,20,28,.25))}
+  .field{margin:0 0 14px}
+  .field dt{
+    font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;
+    text-transform:uppercase;color:#7C7565;margin-bottom:3px
+  }
+  .field dd{
+    margin:0;font-family:"IBM Plex Mono",monospace;font-size:14px;font-weight:500;color:var(--ink);
+    border-bottom:1px dotted var(--paper-line);padding-bottom:5px
+  }
+  .cert-foot{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between}
+  .signature{font-family:"Bodoni Moda",serif;font-style:italic;font-size:22px;color:#3A3629}
+  .sig-label{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#7C7565;border-top:1px solid var(--paper-line);padding-top:5px;margin-top:2px}
+  .seal{
+    width:104px;height:104px;border-radius:50%;
+    border:2px solid var(--stamp);color:var(--stamp);
+    display:grid;place-content:center;text-align:center;
+    transform:rotate(-11deg);opacity:.85;flex:0 0 auto;
+  }
+  .seal b{font-family:"Bodoni Moda",serif;font-size:34px;line-height:1;display:block}
+  .seal span{font-family:"IBM Plex Mono",monospace;font-size:8px;letter-spacing:.16em;display:block;margin-top:5px}
+
+  /* --- contract bar --- */
+  .ca{
+    margin-top:26px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+    background:rgba(242,237,226,.06);border:1px solid rgba(242,237,226,.16);
+    padding:12px 14px;border-radius:2px;
+  }
+  .ca label{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}
+  .ca code{font-family:"IBM Plex Mono",monospace;font-size:13px;word-break:break-all;flex:1 1 220px;color:var(--paper)}
+  button.copy{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+    background:var(--paper);color:var(--ink);border:0;padding:9px 14px;border-radius:2px;cursor:pointer
+  }
+  button.copy:hover{background:var(--seal);color:var(--ink)}
+
+  .cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+  .btn{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;
+    padding:14px 22px;border-radius:2px;text-decoration:none;display:inline-block
+  }
+  .btn-primary{background:var(--stamp);color:var(--paper)}
+  .btn-primary:hover{background:#a12f27}
+  .btn-ghost{border:1px solid rgba(242,237,226,.3);color:var(--paper)}
+  .btn-ghost:hover{border-color:var(--seal);color:var(--seal)}
+
+  /* --- sections --- */
+  section{padding:64px 0;border-top:1px solid rgba(242,237,226,.1)}
+  h2{
+    font-family:"Bodoni Moda",serif;font-weight:700;font-size:clamp(28px,5vw,44px);
+    margin:0 0 8px;letter-spacing:-.01em
+  }
+  .lede{color:#B7B2A6;max-width:60ch;margin:0 0 32px}
+
+  .registry{border-collapse:collapse;width:100%;font-family:"IBM Plex Mono",monospace;font-size:13px}
+  .registry th{
+    text-align:left;font-weight:500;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--muted);padding:0 0 10px;border-bottom:1px solid rgba(242,237,226,.18)
+  }
+  .registry td{padding:14px 0;border-bottom:1px solid rgba(242,237,226,.08);vertical-align:top}
+  .registry td:last-child{text-align:right;color:var(--seal);white-space:nowrap}
+  .registry tr:hover td{background:rgba(242,237,226,.03)}
+
+  .steps{display:grid;gap:1px;background:rgba(242,237,226,.12);border:1px solid rgba(242,237,226,.12)}
+  @media(min-width:760px){.steps{grid-template-columns:repeat(3,1fr)}}
+  .step{background:var(--ink);padding:26px 22px}
+  .step .n{font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.2em;color:var(--stamp);display:block;margin-bottom:10px}
+  .step h3{font-family:"Inter",sans-serif;font-size:17px;font-weight:600;margin:0 0 8px}
+  .step p{margin:0;color:#B7B2A6;font-size:14px}
+
+  .litter{display:grid;gap:14px}
+  @media(min-width:700px){.litter{grid-template-columns:repeat(3,1fr)}}
+  .pup{
+    border:1px solid rgba(242,237,226,.14);padding:20px;background:rgba(242,237,226,.03)
+  }
+  .pup .tag{font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--seal)}
+  .pup h3{font-family:"Bodoni Moda",serif;font-weight:700;font-size:20px;margin:8px 0 6px}
+  .pup p{margin:0;font-size:14px;color:#B7B2A6}
+
+  footer{padding:44px 0 60px;border-top:1px solid rgba(242,237,226,.1)}
+  .disclaimer{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;line-height:1.8;color:var(--muted);
+    max-width:78ch
+  }
+  .links{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:22px;font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+  .links a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(242,237,226,.3);padding-bottom:2px}
+  .links a:hover{color:var(--seal);border-color:var(--seal)}
+
+  @media(max-width:820px){
+    .cert{padding:26px 18px 22px}
+    .cert-grid{grid-template-columns:1fr;gap:10px;text-align:left}
+    .dog{max-width:210px;margin:0 auto}
+    .seal{width:86px;height:86px}
+    .seal b{font-size:28px}
+  }
+  @media(prefers-reduced-motion:no-preference){
+    .cert{animation:drop .7s cubic-bezier(.2,.8,.25,1) both}
+    .seal{animation:stamp .5s .75s cubic-bezier(.2,1.4,.4,1) both}
+    @keyframes drop{from{opacity:0;transform:translateY(22px) rotate(-.4deg)}to{opacity:1;transform:none}}
+    @keyframes stamp{from{opacity:0;transform:rotate(-11deg) scale(1.9)}to{opacity:.85;transform:rotate(-11deg) scale(1)}}
+  }
+  a:focus-visible,button:focus-visible{outline:2px solid var(--seal);outline-offset:3px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="topbar">
+    <b>durov.dog</b>
+    <span class="reg">Reg. no. 466 · parody</span>
+    <a href="#buy">Get one</a>
+  </div>
+</div>
+
+<header class="wrap hero">
+  <p class="eyebrow">Certificate of pedigree · issued by nobody in particular</p>
+
+  <div class="cert">
+    <div class="cert-inner">
+      <p class="cert-head">International Registry of Very Good Boys</p>
+      <h1>durov<span class="dot">.</span>dog</h1>
+      <p class="tagline">One grumpy dog. A hundred and some descendants.</p>
+
+      <div class="cert-grid">
+        <div>
+          <dl class="field"><dt>Registered name</dt><dd>$DUROV</dd></dl>
+          <dl class="field"><dt>Breed</dt><dd>Free-range shepherd</dd></dl>
+          <dl class="field"><dt>Temperament</dt><dd>Does not fetch, does not sit</dd></dl>
+        </div>
+        <img class="dog" src="dog.png" alt="A grumpy white cartoon dog with folded arms">
+        <div>
+          <dl class="field"><dt>Litter size</dt><dd>100+ and counting</dd></dl>
+          <dl class="field"><dt>Keys handed over</dt><dd>0</dd></dl>
+          <dl class="field"><dt>Papers</dt><dd>All of them, in order</dd></dl>
+        </div>
+      </div>
+
+      <div class="cert-foot">
+        <div>
+          <div class="signature">the kennel master</div>
+          <div class="sig-label">signature of the breeder</div>
+        </div>
+        <div class="seal" aria-hidden="true"><b>pd</b><span>CERTIFIED</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ca">
+    <label for="ca">Contract</label>
+    <code id="ca">COMING SOON — beware of fakes</code>
+    <button class="copy" type="button" id="copyBtn">Copy</button>
+  </div>
+
+  <div class="cta-row" id="buy">
+    <a class="btn btn-primary" href="#how">How to get one</a>
+    <a class="btn btn-ghost" href="#">Join the kennel</a>
+  </div>
+</header>
+
+<main>
+  <section class="wrap">
+    <h2>The registry</h2>
+    <p class="lede">Everything a breeder is expected to disclose, printed once and never quietly edited.</p>
+    <table class="registry">
+      <thead><tr><th>Entry</th><th>Detail</th><th>Figure</th></tr></thead>
+      <tbody>
+        <tr><td>Total supply</td><td>Fixed at launch, minting disabled</td><td>1,000,000,000</td></tr>
+        <tr><td>Liquidity</td><td>Locked, receipt published</td><td>90%</td></tr>
+        <tr><td>Kennel treasury</td><td>Memes, listings, kibble</td><td>5%</td></tr>
+        <tr><td>Breeder wallet</td><td>Vested, address public</td><td>5%</td></tr>
+        <tr><td>Buy / sell tax</td><td>None, in either direction</td><td>0 / 0</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="wrap" id="how">
+    <h2>Adoption papers</h2>
+    <p class="lede">Three steps. Nobody will call to verify your household.</p>
+    <div class="steps">
+      <div class="step"><span class="n">Step one</span><h3>Get a wallet</h3><p>Any wallet that holds the chain we launched on. Write the seed phrase on paper, not in a chat.</p></div>
+      <div class="step"><span class="n">Step two</span><h3>Fund it</h3><p>Send the native coin from an exchange, or buy it inside the wallet. Leave a little for fees.</p></div>
+      <div class="step"><span class="n">Step three</span><h3>Swap for $DUROV</h3><p>Paste the contract address from the top of this page. Check it character by character.</p></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2>The litter</h2>
+    <p class="lede">What the kennel is working on. No quarters, no arrows, no promises we can't keep.</p>
+    <div class="litter">
+      <div class="pup"><span class="tag">Whelped</span><h3>The dog</h3><p>The mascot, the domain, the certificate you're reading. Done.</p></div>
+      <div class="pup"><span class="tag">Weaning</span><h3>Sticker pack</h3><p>Grumpy in twenty poses, free in Telegram, spread by the holders.</p></div>
+      <div class="pup"><span class="tag">Not yet born</span><h3>The pedigree board</h3><p>A public wall of holders, ranked by how long they've kept the dog.</p></div>
+    </div>
+  </section>
+</main>
+
+<footer class="wrap">
+  <div class="links">
+    <a href="#">Telegram</a><a href="#">X</a><a href="#">Chart</a><a href="#">Contract</a>
+  </div>
+  <p class="disclaimer">
+    durov.dog is a parody memecoin and an internet joke. It is not affiliated with, endorsed by,
+    or connected to any real person, messenger, company or foundation, and no real individual is
+    depicted here. The token has no utility, no roadmap you should rely on, no team behind it that
+    owes you anything, and no expectation of profit. Memecoins routinely go to zero. Never send
+    money you would miss, verify the contract address yourself, and treat every link as hostile
+    until you've checked it. Nothing here is financial advice.
+  </p>
+</footer>
+
+<script>
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var text = document.getElementById('ca').textContent.trim();
+    navigator.clipboard.writeText(text).then(function(){
+      var b = document.getElementById('copyBtn');
+      b.textContent = 'Copied';
+      setTimeout(function(){ b.textContent = 'Copy'; }, 1600);
+    });
+  });
+</script>
+</body>
+</html>
