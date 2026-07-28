@@ -113,6 +113,26 @@
   .btn-ghost{border-color:#333;color:var(--ink)}
   .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
 
+  /* ── shelter callout ── */
+  .shelter{
+    margin-top:26px;display:flex;gap:20px;align-items:flex-start;
+    background:#0a0a0a;border:1px solid var(--line);padding:22px 22px 24px;
+    border-left:3px solid var(--accent)
+  }
+  .shelter-badge{
+    flex:0 0 auto;font-family:"Space Grotesk",sans-serif;font-weight:700;
+    font-size:44px;line-height:1;color:var(--accent);letter-spacing:-.02em
+  }
+  .shelter-title{
+    font-family:"Space Grotesk",sans-serif;font-weight:500;
+    font-size:18px;line-height:1.3;color:var(--ink);margin-bottom:8px
+  }
+  .shelter-body{font-size:13px;color:#a0a0a0;line-height:1.7}
+  @media(max-width:520px){
+    .shelter{flex-direction:column;gap:10px}
+    .shelter-badge{font-size:36px}
+  }
+
   /* ── contract row ── */
   .ca{
     margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
@@ -202,8 +222,8 @@
   <!-- THE KENNEL WALL -->
   <section id="wall" class="wrap">
     <p class="eyebrow">The kennel wall</p>
-    <h2>One million pixels.<br>One dog.</h2>
-    <p class="lede">A one-million-pixel canvas. Under it, a portrait of the dog. Each pixel adopted uncovers a square of the picture — left to right, top to bottom.</p>
+    <h2>One million dogs.<br>One kennel.</h2>
+    <p class="lede">A one-million-pixel canvas. Under it, a portrait of the dog. Every dog you adopt lights up a square — left to right, top to bottom — until the whole picture is home.</p>
 
     <div class="wall-box">
       <div class="wall-head">
@@ -213,8 +233,16 @@
       <div class="bar"><div id="bar-fill"></div></div>
       <canvas id="wall" width="1000" height="1000" aria-label="Kennel wall — a one-million-pixel canvas"></canvas>
       <div class="wall-cta">
-        <div class="price">1 pixel = <b>1 GRAM</b> · 1 pixel = <b>1 NFT</b> · 1 NFT = lifetime pass to the pack</div>
-        <button class="btn btn-primary" disabled>Adopt a pixel · soon</button>
+        <div class="price">1 dog = <b>1 GRAM</b> · 1 dog = <b>1 CNFT</b> · 1 CNFT = lifetime pass to the pack</div>
+        <button class="btn btn-primary" disabled>Adopt 1 dog · soon</button>
+      </div>
+    </div>
+
+    <div class="shelter">
+      <div class="shelter-badge">50%</div>
+      <div>
+        <p class="shelter-title">Half of every adoption goes to the Durov Dog Shelter.</p>
+        <p class="shelter-body">Real kennels, real food, real vets. The other half funds the coin, the drops, the merch, the reveal. Wallet address and monthly report published on-chain — no committee, no promises, only receipts.</p>
       </div>
     </div>
   </section>
@@ -240,7 +268,7 @@
       <button type="button" id="copyBtn">Copy</button>
     </div>
     <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
-      <a class="btn btn-primary" href="#wall">Adopt a pixel</a>
+      <a class="btn btn-primary" href="#wall">Adopt 1 dog</a>
       <a class="btn btn-ghost" href="#manifesto">Read the manifesto</a>
     </div>
   </section>
