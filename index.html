@@ -3,72 +3,294 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>durov.dog</title>
-<meta name="description" content="durov.dog — parody memecoin. Not affiliated with any person, company or messenger.">
+<title>durov.dog — a meme with serious intentions</title>
+<meta name="description" content="A meme with serious intentions. Sport. Love. Freedom. Multiplication. The kennel wall: 1,000,000 pixels, each an NFT, each a pass to the pack.">
 <link rel="icon" href="dog.png">
+<meta property="og:title" content="durov.dog — a meme with serious intentions">
+<meta property="og:description" content="Sport. Love. Freedom. Multiplication. One million pixels. One dog.">
+<meta property="og:image" content="dog.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+  :root{
+    --bg:#000;
+    --ink:#fff;
+    --muted:#666;
+    --line:#1a1a1a;
+    --accent:#229ED9; /* Telegram cap blue — единственный акцент */
+  }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{
-    background:#000;
-    color:#fff;
-    min-height:100vh;
-    font-family:"IBM Plex Mono",monospace;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
+  html{scroll-behavior:smooth}
+  html,body{background:var(--bg);color:var(--ink);min-height:100vh;
+    font-family:"IBM Plex Mono",monospace;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+
+  /* ── nav ── */
+  nav{
+    position:sticky;top:0;z-index:20;
+    background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
   }
-  main{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    padding:40px 20px;
-    gap:22px;
-    text-align:center;
-  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+  nav b{font-weight:500;letter-spacing:.12em}
+  nav a{text-decoration:none;color:var(--muted)}
+  nav a:hover{color:var(--ink)}
+  nav .nav-links{display:flex;gap:22px}
+
+  /* ── hero ── */
+  header{padding:56px 20px 80px;text-align:center}
   .dog{
-    max-width:min(360px,72vw);
-    width:100%;
-    height:auto;
+    max-width:min(340px,68vw);width:100%;height:auto;margin:0 auto;display:block;
     filter:drop-shadow(0 0 60px rgba(255,255,255,.06));
-    user-select:none;
-    -webkit-user-drag:none;
+    user-select:none;-webkit-user-drag:none;
   }
   h1{
-    font-family:"Space Grotesk",sans-serif;
-    font-weight:700;
-    font-size:clamp(52px,13vw,132px);
-    letter-spacing:-.04em;
-    line-height:.9;
+    font-family:"Space Grotesk",sans-serif;font-weight:700;
+    font-size:clamp(52px,13vw,140px);letter-spacing:-.04em;line-height:.9;margin:26px 0 16px
   }
   h1 .dot{color:#fff;opacity:.35}
-  .tagline{
-    font-size:13px;
-    letter-spacing:.28em;
-    text-transform:uppercase;
-    color:#666;
+  .tagline{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+
+  /* ── section shell ── */
+  section{padding:80px 0;border-top:1px solid var(--line)}
+  .eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
+  h2{
+    font-family:"Space Grotesk",sans-serif;font-weight:700;
+    font-size:clamp(30px,5vw,52px);letter-spacing:-.02em;line-height:1.02;margin-bottom:14px
   }
-  footer{
-    position:fixed;
-    bottom:16px;
-    left:0;right:0;
-    text-align:center;
-    font-size:10px;
-    letter-spacing:.24em;
-    text-transform:uppercase;
-    color:#333;
+  .lede{color:#a0a0a0;max-width:60ch;font-size:15px;line-height:1.7}
+
+  /* ── manifesto — 4 pillars ── */
+  .pillars{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:36px}
+  @media(min-width:720px){.pillars{grid-template-columns:repeat(2,1fr)}}
+  .pillar{background:var(--bg);padding:32px 26px}
+  .pillar .n{
+    font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
+    display:flex;justify-content:space-between;align-items:center;margin-bottom:14px
   }
+  .pillar .n b{color:var(--accent);font-weight:500}
+  .pillar h3{
+    font-family:"Space Grotesk",sans-serif;font-weight:700;
+    font-size:34px;letter-spacing:-.02em;margin-bottom:10px
+  }
+  .pillar p{color:#a0a0a0;font-size:14px;line-height:1.7}
+
+  /* ── role model ── */
+  .role{margin-top:28px;font-size:16px;line-height:1.75;color:#c5c5c5;max-width:65ch}
+  .role em{color:var(--accent);font-style:normal}
+  .role p+p{margin-top:16px}
+
+  /* ── canvas / kennel wall ── */
+  .wall-box{
+    margin-top:36px;border:1px solid var(--line);background:#0a0a0a;padding:20px
+  }
+  .wall-head{
+    display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:14px
+  }
+  .wall-head b{color:var(--ink);font-weight:500}
+  .bar{width:100%;height:2px;background:#1a1a1a;overflow:hidden;margin-bottom:14px}
+  .bar>div{height:100%;background:var(--accent);width:0}
+  #wall{
+    width:100%;aspect-ratio:1/1;background:#000;display:block;
+    border:1px solid #111;image-rendering:pixelated
+  }
+  .wall-cta{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+  .wall-cta .price{font-size:13px;color:var(--muted);letter-spacing:.06em}
+  .wall-cta .price b{color:var(--ink);font-weight:500}
+  .btn{
+    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    padding:14px 22px;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;
+    border:1px solid transparent;cursor:pointer;background:none
+  }
+  .btn-primary{background:var(--ink);color:var(--bg)}
+  .btn-primary:hover{background:var(--accent);color:var(--ink)}
+  .btn[disabled]{opacity:.35;cursor:not-allowed}
+  .btn-ghost{border-color:#333;color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* ── contract row ── */
+  .ca{
+    margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
+    background:#0a0a0a;border:1px solid var(--line);padding:14px 16px
+  }
+  .ca label{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+  .ca code{font-size:13px;word-break:break-all;flex:1 1 220px}
+  .ca button{
+    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    background:var(--ink);color:var(--bg);border:0;padding:9px 14px;border-radius:2px;cursor:pointer
+  }
+  .ca button:hover{background:var(--accent)}
+
+  /* ── footer ── */
+  footer{padding:56px 20px 60px;border-top:1px solid var(--line);text-align:center}
+  .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:26px;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase}
+  .links a{color:var(--muted);text-decoration:none;border-bottom:1px solid #222;padding-bottom:2px}
+  .links a:hover{color:var(--accent);border-color:var(--accent)}
+  .disclaimer{font-size:10px;line-height:1.9;color:#3a3a3a;max-width:78ch;margin:0 auto;letter-spacing:.05em}
+
+  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 </style>
 </head>
 <body>
-<main>
-  <img class="dog" src="dog.png" alt="durov.dog mascot — grumpy buff dog in a cap">
+
+<nav>
+  <div class="wrap">
+    <b>durov.dog</b>
+    <div class="nav-links">
+      <a href="#manifesto">Manifesto</a>
+      <a href="#wall">Kennel wall</a>
+      <a href="#buy">Buy</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <img class="dog" src="dog.png" alt="durov.dog mascot — grumpy buff dog in a Telegram cap and shades">
   <h1>DUROV<span class="dot">.</span>DOG</h1>
-  <p class="tagline">Coming soon</p>
+  <p class="tagline">A meme with serious intentions</p>
+</header>
+
+<main>
+
+  <!-- MANIFESTO -->
+  <section id="manifesto" class="wrap">
+    <p class="eyebrow">Manifesto</p>
+    <h2>Four pillars.<br>No fifth.</h2>
+    <p class="lede">This isn't a jpeg with a roadmap. It's a stance you either share or you don't. Every pixel we sell is a signature under these four words.</p>
+
+    <div class="pillars">
+      <div class="pillar">
+        <div class="n">01 <b>Sport</b></div>
+        <h3>Sport</h3>
+        <p>You train, or you don't exist. The dog is buff because it lifts every day. The founder we admire pushes iron before he pushes code. Weakness is a choice.</p>
+      </div>
+      <div class="pillar">
+        <div class="n">02 <b>Love</b></div>
+        <h3>Love</h3>
+        <p>For the pack. For the people who use the tools you build. For your kids, biological or spiritual. Cynicism is a tax on the tired — the dog doesn't pay it.</p>
+      </div>
+      <div class="pillar">
+        <div class="n">03 <b>Freedom</b></div>
+        <h3>Freedom</h3>
+        <p>Freedom from surveillance. From custody. From permission to speak. Encryption is a civic virtue. A wallet is a fundamental right. Not-your-keys is not a slogan.</p>
+      </div>
+      <div class="pillar">
+        <div class="n">04 <b>Multiplication</b></div>
+        <h3>Multiplication</h3>
+        <p>Descendants — biological, philosophical, tokenised. A hundred children. A hundred million users. A billion tokens. Growth is the only proof that the pack is alive.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE ROLE MODEL -->
+  <section class="wrap">
+    <p class="eyebrow">The role model</p>
+    <h2>The archetype we chase.</h2>
+    <div class="role">
+      <p>The founder of <em>Telegram</em>. Of the <em>TON</em> blockchain. Of the <em>GRAM</em> token. He is not our founder — he is our <em>reference</em>. We take him as the shape a life is supposed to have.</p>
+      <p>He built. He trained. He stayed private. He held the line against governments and against custody. He kept multiplying — users, ideas, offspring. That is the pedigree we chase.</p>
+      <p>The dog on this page is not him. The dog is us, when we finally take the hint.</p>
+    </div>
+  </section>
+
+  <!-- THE KENNEL WALL -->
+  <section id="wall" class="wrap">
+    <p class="eyebrow">The kennel wall</p>
+    <h2>One million pixels.<br>One dog.</h2>
+    <p class="lede">A one-million-pixel canvas. Under it, a portrait of the dog. Each pixel adopted uncovers a square of the picture — left to right, top to bottom.</p>
+
+    <div class="wall-box">
+      <div class="wall-head">
+        <span>Adopted: <b id="sold">0</b> / 1,000,000</span>
+        <span>Testnet — minting soon</span>
+      </div>
+      <div class="bar"><div id="bar-fill"></div></div>
+      <canvas id="wall" width="1000" height="1000" aria-label="Kennel wall — a one-million-pixel canvas"></canvas>
+      <div class="wall-cta">
+        <div class="price">1 pixel = <b>1 GRAM</b> · 1 pixel = <b>1 NFT</b> · 1 NFT = lifetime pass to the pack</div>
+        <button class="btn btn-primary" disabled>Adopt a pixel · soon</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBERSHIP -->
+  <section class="wrap">
+    <p class="eyebrow">Membership</p>
+    <h2>Owning a pixel is<br>your kennel pass.</h2>
+    <div class="role">
+      <p>Every pixel is minted as a <em>CNFT</em> on TON — cheap to mint, cheap to hold, cheap to transfer. Traded on Getgems, verifiable on the chain, no committee to approve you.</p>
+      <p>The NFT is your <em>entry pass</em> to the club. Holders get: early word on drops, private Telegram channel, priority for future merch and events, and the right to say "I was there before it made sense."</p>
+    </div>
+  </section>
+
+  <!-- CONTRACT + CTA -->
+  <section id="buy" class="wrap">
+    <p class="eyebrow">Contract</p>
+    <h2>Verify before you send.</h2>
+    <p class="lede">Anyone can fake a ticker. Only one contract is real. Copy from here, not from a group chat.</p>
+    <div class="ca">
+      <label>Contract</label>
+      <code id="ca">COMING SOON — beware of fakes</code>
+      <button type="button" id="copyBtn">Copy</button>
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+      <a class="btn btn-primary" href="#wall">Adopt a pixel</a>
+      <a class="btn btn-ghost" href="#manifesto">Read the manifesto</a>
+    </div>
+  </section>
+
 </main>
-<footer>parody · not financial advice</footer>
+
+<footer>
+  <div class="links">
+    <a href="#">Telegram</a><a href="#">X</a><a href="#">Getgems</a><a href="#">Chart</a>
+  </div>
+  <p class="disclaimer">
+    durov.dog is a parody memecoin and an internet joke. It is not affiliated with, endorsed by,
+    or connected to any real person, messenger, company or foundation. The token has no utility,
+    no roadmap you should rely on, no team behind it that owes you anything, and no expectation
+    of profit. Memecoins routinely go to zero. Verify the contract address yourself, treat every
+    link as hostile until you've checked it. Nothing here is financial advice.
+  </p>
+</footer>
+
+<script>
+  // ── Kennel wall — placeholder canvas (pure black until minting starts) ──
+  (function(){
+    var c = document.getElementById('wall');
+    if (!c || !c.getContext) return;
+    var ctx = c.getContext('2d');
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, c.width, c.height);
+    // Subtle grid so it doesn't look broken — 100 lines each direction
+    ctx.strokeStyle = 'rgba(255,255,255,.03)';
+    ctx.lineWidth = 1;
+    for (var i = 0; i <= 10; i++){
+      var p = i * c.width / 10;
+      ctx.beginPath(); ctx.moveTo(p, 0); ctx.lineTo(p, c.height); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(0, p); ctx.lineTo(c.width, p); ctx.stroke();
+    }
+    // «MINTING SOON» центр
+    ctx.fillStyle = 'rgba(255,255,255,.14)';
+    ctx.font = 'bold 42px "Space Grotesk", sans-serif';
+    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('MINTING SOON', c.width / 2, c.height / 2);
+  })();
+
+  // Copy contract
+  document.getElementById('copyBtn').addEventListener('click', function(){
+    var text = document.getElementById('ca').textContent.trim();
+    navigator.clipboard.writeText(text).then(function(){
+      var b = document.getElementById('copyBtn');
+      b.textContent = 'Copied';
+      setTimeout(function(){ b.textContent = 'Copy'; }, 1600);
+    });
+  });
+</script>
 </body>
 </html>
