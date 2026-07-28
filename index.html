@@ -178,6 +178,34 @@
 
 <main>
 
+  <!-- THE KENNEL WALL (первым — просил юзер: canvas выше текста) -->
+  <section id="wall" class="wrap">
+    <p class="eyebrow">The kennel wall</p>
+    <h2>One million dogs.<br>One kennel.</h2>
+    <p class="lede">A one-million-pixel canvas. Under it, a portrait of the dog. Every dog you adopt lights up a square — left to right, top to bottom — until the whole picture is home.</p>
+
+    <div class="wall-box">
+      <div class="wall-head">
+        <span>Adopted: <b id="sold">0</b> / 1,000,000</span>
+        <span>Testnet — minting soon</span>
+      </div>
+      <div class="bar"><div id="bar-fill"></div></div>
+      <canvas id="wall-canvas" width="1000" height="1000" aria-label="Kennel wall — a one-million-pixel canvas"></canvas>
+      <div class="wall-cta">
+        <div class="price">1 dog = <b>1 GRAM</b> · 1 dog = <b>1 CNFT</b> · 1 CNFT = lifetime pass to the pack</div>
+        <button class="btn btn-primary" disabled>Adopt 1 dog · soon</button>
+      </div>
+    </div>
+
+    <div class="shelter">
+      <div class="shelter-badge">50%</div>
+      <div>
+        <p class="shelter-title">Half of every adoption goes to the Durov Dog Shelter.</p>
+        <p class="shelter-body">Real kennels, real food, real vets. The other half funds the coin, the drops, the merch, the reveal. Wallet address and monthly report published on-chain — no committee, no promises, only receipts.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- MANIFESTO -->
   <section id="manifesto" class="wrap">
     <p class="eyebrow">Manifesto</p>
@@ -216,34 +244,6 @@
       <p>The founder of <em>Telegram</em>. Of the <em>TON</em> blockchain. Of the <em>GRAM</em> token. He is not our founder — he is our <em>reference</em>. We take him as the shape a life is supposed to have.</p>
       <p>He built. He trained. He stayed private. He held the line against governments and against custody. He kept multiplying — users, ideas, offspring. That is the pedigree we chase.</p>
       <p>The dog on this page is not him. The dog is us, when we finally take the hint.</p>
-    </div>
-  </section>
-
-  <!-- THE KENNEL WALL -->
-  <section id="wall" class="wrap">
-    <p class="eyebrow">The kennel wall</p>
-    <h2>One million dogs.<br>One kennel.</h2>
-    <p class="lede">A one-million-pixel canvas. Under it, a portrait of the dog. Every dog you adopt lights up a square — left to right, top to bottom — until the whole picture is home.</p>
-
-    <div class="wall-box">
-      <div class="wall-head">
-        <span>Adopted: <b id="sold">0</b> / 1,000,000</span>
-        <span>Testnet — minting soon</span>
-      </div>
-      <div class="bar"><div id="bar-fill"></div></div>
-      <canvas id="wall" width="1000" height="1000" aria-label="Kennel wall — a one-million-pixel canvas"></canvas>
-      <div class="wall-cta">
-        <div class="price">1 dog = <b>1 GRAM</b> · 1 dog = <b>1 CNFT</b> · 1 CNFT = lifetime pass to the pack</div>
-        <button class="btn btn-primary" disabled>Adopt 1 dog · soon</button>
-      </div>
-    </div>
-
-    <div class="shelter">
-      <div class="shelter-badge">50%</div>
-      <div>
-        <p class="shelter-title">Half of every adoption goes to the Durov Dog Shelter.</p>
-        <p class="shelter-body">Real kennels, real food, real vets. The other half funds the coin, the drops, the merch, the reveal. Wallet address and monthly report published on-chain — no committee, no promises, only receipts.</p>
-      </div>
     </div>
   </section>
 
@@ -291,7 +291,7 @@
 <script>
   // ── Kennel wall — placeholder canvas (pure black until minting starts) ──
   (function(){
-    var c = document.getElementById('wall');
+    var c = document.getElementById('wall-canvas');
     if (!c || !c.getContext) return;
     var ctx = c.getContext('2d');
     ctx.fillStyle = '#000';
