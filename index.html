@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
 <style>
   :root{
     --bg:#000;
@@ -39,10 +40,19 @@
   nav a{text-decoration:none;color:var(--muted);white-space:nowrap}
   nav a:hover{color:var(--ink)}
   nav .nav-links{display:flex;gap:22px;flex-wrap:nowrap}
+  nav .nav-right{display:flex;align-items:center;gap:20px;flex-wrap:nowrap}
+  /* TonConnect UI кнопку впихиваем в наш стиль — SDK создаёт внутри своего div */
+  #ton-connect-btn{display:flex;align-items:center}
+  #ton-connect-btn button{
+    font-family:"IBM Plex Mono",monospace !important;
+    font-size:11px !important;letter-spacing:.2em !important;text-transform:uppercase !important;
+    background:var(--accent) !important;color:var(--ink) !important;
+    padding:8px 14px !important;border-radius:2px !important;border:0 !important
+  }
   @media(max-width:520px){
-    nav .wrap{gap:20px}
-    nav .nav-links{gap:14px}
-    nav .nav-links a:nth-child(2){display:none}
+    nav .wrap{gap:16px}
+    nav .nav-links{display:none} /* на узких — только логотип + кошелёк */
+    #ton-connect-btn button{padding:7px 10px !important;font-size:10px !important}
   }
 
   /* ── hero ── */
@@ -104,9 +114,10 @@
     width:100%;aspect-ratio:1/1;background:#000;display:block;
     border:1px solid #111;image-rendering:pixelated
   }
-  .wall-cta{margin-top:20px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
-  .wall-cta .price{font-size:13px;color:var(--muted);letter-spacing:.06em}
-  .wall-cta .price b{color:var(--ink);font-weight:500}
+  .wall-cta{margin-top:20px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+  .wall-cta .btn-primary{padding:16px 28px;font-size:13px;letter-spacing:.22em;min-width:min(320px,100%)}
+  .wall-cta .buy-hint{font-size:12px;color:var(--muted);line-height:1.6;max-width:44ch}
+  .wh-val{color:var(--ink);font-weight:500}
   .btn{
     font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
     padding:14px 22px;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;
@@ -167,10 +178,12 @@
 <nav>
   <div class="wrap">
     <b>durov.dog</b>
-    <div class="nav-links">
-      <a href="#manifesto">Manifesto</a>
-      <a href="#wall">Kennel wall</a>
-      <a href="#buy">Buy</a>
+    <div class="nav-right">
+      <div class="nav-links">
+        <a href="#manifesto">Manifesto</a>
+        <a href="#wall">Buy pixel</a>
+      </div>
+      <div id="ton-connect-btn"></div>
     </div>
   </div>
 </nav>
@@ -183,30 +196,30 @@
 
 <main>
 
-  <!-- THE KENNEL WALL (первым — просил юзер: canvas выше текста) -->
+  <!-- THE KENNEL WALL — canvas + wallet + buy -->
   <section id="wall" class="wrap">
     <p class="eyebrow">The kennel wall</p>
-    <h2>One million dogs.</h2>
-    <p class="lede">A one-million-pixel canvas. Under it, a portrait of the dog. Every dog you adopt lights up a square — left to right, top to bottom — until the whole picture is home.</p>
+    <h2>Buy 1 pixel.<br>Support the project.</h2>
+    <p class="lede">One million pixels. Underneath — the pack. Every pixel bought lights up one square, left to right, until the picture is home. Each pixel = one NFT on TON, forever yours.</p>
 
     <div class="wall-box">
       <div class="wall-head">
-        <span>Adopted: <b id="sold">0</b> / 1,000,000</span>
-        <span>Testnet — minting soon</span>
+        <span>Sold: <b id="sold">0</b> / 1,000,000</span>
+        <span>1 pixel = <b class="wh-val">1 GRAM</b></span>
       </div>
       <div class="bar"><div id="bar-fill"></div></div>
       <canvas id="wall-canvas" width="1000" height="1000" aria-label="Kennel wall — a one-million-pixel canvas"></canvas>
       <div class="wall-cta">
-        <div class="price">1 dog = <b>1 GRAM</b> · 1 dog = <b>1 CNFT</b> · 1 CNFT = lifetime pass to the pack</div>
-        <button class="btn btn-primary" disabled>Adopt 1 dog · soon</button>
+        <button class="btn btn-primary" id="buy-btn">Buy 1 pixel · 1 GRAM</button>
+        <p class="buy-hint" id="buy-hint">Connect a TON wallet (button top right), then click Buy. Plus ~0.1 GRAM gas — change returns to you.</p>
       </div>
     </div>
 
     <div class="shelter">
       <div class="shelter-badge">50%</div>
       <div>
-        <p class="shelter-title">Half of every adoption goes to the Durov Dog Shelter.</p>
-        <p class="shelter-body">Real kennels, real food, real vets. The other half funds the coin, the drops, the merch, the reveal. Wallet address and monthly report published on-chain — no committee, no promises, only receipts.</p>
+        <p class="shelter-title">Half of every pixel funds the Durov Dog Shelter.</p>
+        <p class="shelter-body">Real kennels, real food, real vets. Wallet address and monthly report published on-chain when the treasury is set up. Receipts, not promises.</p>
       </div>
     </div>
   </section>
@@ -294,33 +307,92 @@
 </footer>
 
 <script>
-  // ── Kennel wall — placeholder canvas (pure black until minting starts) ──
-  (function(){
-    var c = document.getElementById('wall-canvas');
-    if (!c || !c.getContext) return;
-    var ctx = c.getContext('2d');
-    ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, c.width, c.height);
-    // Subtle grid so it doesn't look broken — 100 lines each direction
-    ctx.strokeStyle = 'rgba(255,255,255,.03)';
-    ctx.lineWidth = 1;
-    for (var i = 0; i <= 10; i++){
-      var p = i * c.width / 10;
-      ctx.beginPath(); ctx.moveTo(p, 0); ctx.lineTo(p, c.height); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(0, p); ctx.lineTo(c.width, p); ctx.stroke();
-    }
-    // «MINTING SOON» центр
-    ctx.fillStyle = 'rgba(255,255,255,.14)';
-    ctx.font = 'bold 42px "Space Grotesk", sans-serif';
-    ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-    ctx.fillText('MINTING SOON', c.width / 2, c.height / 2);
-  })();
+  // ─── Config ─────────────────────────────────────────────────────────
+  const TOTAL = 1_000_000;
+  const PIXEL_COLLECTION = 'EQCTHxInEIDT9PnjRMMCpMOY8BwOQZVoeGWyuz1m8zEEtLxW'; // Durov Dog PIXEL
+  const RECEIVER = 'UQCdDi4-w9ZA60l72cOQHnAl-a7qCM7VJ1zGG_NX6vAkaVPB';         // owner wallet
+  const PIXEL_PRICE_NANO = 1000000000n; // 1 GRAM
+  const GAS_NANO = 100000000n;          // 0.1 GRAM buffer, change returns
+  let sold = 0;
 
-  // Copy contract
+  // ─── TonConnect ─────────────────────────────────────────────────────
+  const tc = new TON_CONNECT_UI.TonConnectUI({
+    manifestUrl: 'https://durov.dog/tonconnect-manifest.json',
+    buttonRootId: 'ton-connect-btn',
+  });
+
+  // ─── Wall rendering — column-by-column reveal, left to right ────────
+  const bgImg = new Image();
+  bgImg.crossOrigin = 'anonymous';
+  bgImg.src = 'bg.png';
+
+  function drawWall(){
+    const c = document.getElementById('wall-canvas');
+    if (!c || !c.getContext) return;
+    const ctx = c.getContext('2d');
+    // всегда сначала чёрный
+    ctx.fillStyle = '#000';
+    ctx.fillRect(0, 0, 1000, 1000);
+    if (!bgImg.complete || bgImg.naturalWidth === 0) return;
+    // Открываем колонками (1000px высотой) слева направо + текущую партиалку
+    const fullCols = Math.floor(sold / 1000);
+    const partial  = sold % 1000;
+    if (fullCols > 0) ctx.drawImage(bgImg, 0, 0, fullCols, 1000, 0, 0, fullCols, 1000);
+    if (partial  > 0) ctx.drawImage(bgImg, fullCols, 0, 1, partial, fullCols, 0, 1, partial);
+  }
+  bgImg.onload = drawWall;
+
+  function updateCounter(){
+    document.getElementById('sold').textContent = sold.toLocaleString('en-US');
+    document.getElementById('bar-fill').style.width = ((sold / TOTAL) * 100) + '%';
+  }
+
+  // ─── Counter refresh — backend endpoint (TBD) ───────────────────────
+  async function refresh(){
+    try {
+      // TODO: подключить когда деплоим /api/pixels-sold.
+      // const r = await fetch('/api/pixels-sold');
+      // const j = await r.json();
+      // sold = Number(j.sold || 0);
+    } catch { /* keep last value */ }
+    updateCounter();
+    drawWall();
+  }
+  refresh();
+  setInterval(refresh, 30_000);
+
+  // ─── Buy 1 pixel ────────────────────────────────────────────────────
+  document.getElementById('buy-btn').addEventListener('click', async () => {
+    const hint = document.getElementById('buy-hint');
+    if (!tc.connected) {
+      await tc.openModal();
+      hint.textContent = 'Wallet connected — click Buy again to send 1.1 GRAM.';
+      return;
+    }
+    hint.textContent = 'Payment listener rolls out shortly — hold on. Your NFT will mint automatically once online.';
+    // TODO: включить sendTransaction когда backend-listener задеплоен
+    // try {
+    //   await tc.sendTransaction({
+    //     validUntil: Math.floor(Date.now() / 1000) + 300,
+    //     network: '-239',
+    //     messages: [{
+    //       address: RECEIVER,
+    //       amount: (PIXEL_PRICE_NANO + GAS_NANO).toString(),
+    //     }],
+    //   });
+    //   hint.textContent = 'Sent! Your pixel + NFT will appear within a minute.';
+    //   setTimeout(refresh, 15_000);
+    //   setTimeout(refresh, 45_000);
+    // } catch (e) {
+    //   hint.textContent = 'Transaction was cancelled or failed. Try again.';
+    // }
+  });
+
+  // ─── Copy contract ──────────────────────────────────────────────────
   document.getElementById('copyBtn').addEventListener('click', function(){
-    var text = document.getElementById('ca').textContent.trim();
+    const text = document.getElementById('ca').textContent.trim();
     navigator.clipboard.writeText(text).then(function(){
-      var b = document.getElementById('copyBtn');
+      const b = document.getElementById('copyBtn');
       b.textContent = 'Copied';
       setTimeout(function(){ b.textContent = 'Copy'; }, 1600);
     });
