@@ -309,11 +309,23 @@
 <script>
   // ─── Config ─────────────────────────────────────────────────────────
   const TOTAL = 1_000_000;
-  const PIXEL_COLLECTION = 'EQCTHxInEIDT9PnjRMMCpMOY8BwOQZVoeGWyuz1m8zEEtLxW'; // Durov Dog PIXEL
-  const RECEIVER = 'UQCdDi4-w9ZA60l72cOQHnAl-a7qCM7VJ1zGG_NX6vAkaVPB';         // owner wallet
+  // Наш собственный Tact-контракт коллекции (задеплоен 2026-07-29).
+  // Всё атомарно: принимает 1.1 GRAM, минтит NFT-item, шлёт его покупателю.
+  const CONTRACT = 'EQBoX6dWBxYGrJBU5D2IewnTnDPR8qoJVGGMLcTJH5lgiQrY';
   const PIXEL_PRICE_NANO = 1000000000n; // 1 GRAM
-  const GAS_NANO = 100000000n;          // 0.1 GRAM buffer, change returns
+  const GAS_NANO = 100000000n;          // 0.1 GRAM buffer
   let sold = 0;
+
+  // BuyPixels op 0x100 payload cell (forked из kazantip, идентичный формат)
+  function buyPayload(count) {
+    const data = new Uint8Array([
+      0xb5, 0xee, 0x9c, 0x72, 0x01, 0x01, 0x01, 0x01, 0x00, 0x0a,
+      0x00, 0x00, 0x10, // d1, d2 (64 bits)
+      0x00, 0x00, 0x01, 0x00, // op = 0x00000100
+      (count >>> 24) & 0xff, (count >>> 16) & 0xff, (count >>> 8) & 0xff, count & 0xff,
+    ]);
+    return btoa(String.fromCharCode.apply(null, data));
+  }
 
   // ─── TonConnect ─────────────────────────────────────────────────────
   const tc = new TON_CONNECT_UI.TonConnectUI({
@@ -376,14 +388,15 @@
         validUntil: Math.floor(Date.now() / 1000) + 300,
         network: '-239',
         messages: [{
-          address: RECEIVER,
+          address: CONTRACT,
           amount: (PIXEL_PRICE_NANO + GAS_NANO).toString(),
+          payload: buyPayload(1),
         }],
       });
-      hint.textContent = 'Sent! Your pixel + NFT will appear within a minute or two.';
-      setTimeout(refresh, 15_000);
-      setTimeout(refresh, 45_000);
-      setTimeout(refresh, 90_000);
+      hint.textContent = 'Sent! Your pixel + NFT will appear within ~30 seconds.';
+      setTimeout(refresh, 10_000);
+      setTimeout(refresh, 25_000);
+      setTimeout(refresh, 60_000);
     } catch (e) {
       hint.textContent = 'Transaction was cancelled or failed. Try again.';
     }

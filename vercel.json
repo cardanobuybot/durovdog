@@ -1,9 +1,6 @@
 {
-  "crons": [
-    { "path": "/api/pixels-listener", "schedule": "*/1 * * * *" }
-  ],
   "functions": {
-    "api/pixels-listener.js": { "maxDuration": 60 },
-    "api/pixels-sold.js":     { "maxDuration": 15 }
+    "api/pixels-sold.js":        { "maxDuration": 15 },
+    "api/pixel-meta/[index].js": { "maxDuration": 15 }
   }
 }
