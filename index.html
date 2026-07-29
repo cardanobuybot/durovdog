@@ -347,13 +347,14 @@
     document.getElementById('bar-fill').style.width = ((sold / TOTAL) * 100) + '%';
   }
 
-  // ─── Counter refresh — backend endpoint (TBD) ───────────────────────
+  // ─── Counter refresh — читаем /api/pixels-sold ──────────────────────
   async function refresh(){
     try {
-      // TODO: подключить когда деплоим /api/pixels-sold.
-      // const r = await fetch('/api/pixels-sold');
-      // const j = await r.json();
-      // sold = Number(j.sold || 0);
+      const r = await fetch('/api/pixels-sold', { cache: 'no-store' });
+      if (r.ok) {
+        const j = await r.json();
+        sold = Number(j.sold || 0);
+      }
     } catch { /* keep last value */ }
     updateCounter();
     drawWall();
@@ -369,23 +370,23 @@
       hint.textContent = 'Wallet connected — click Buy again to send 1.1 GRAM.';
       return;
     }
-    hint.textContent = 'Payment listener rolls out shortly — hold on. Your NFT will mint automatically once online.';
-    // TODO: включить sendTransaction когда backend-listener задеплоен
-    // try {
-    //   await tc.sendTransaction({
-    //     validUntil: Math.floor(Date.now() / 1000) + 300,
-    //     network: '-239',
-    //     messages: [{
-    //       address: RECEIVER,
-    //       amount: (PIXEL_PRICE_NANO + GAS_NANO).toString(),
-    //     }],
-    //   });
-    //   hint.textContent = 'Sent! Your pixel + NFT will appear within a minute.';
-    //   setTimeout(refresh, 15_000);
-    //   setTimeout(refresh, 45_000);
-    // } catch (e) {
-    //   hint.textContent = 'Transaction was cancelled or failed. Try again.';
-    // }
+    try {
+      hint.textContent = 'Confirm the transaction in your wallet…';
+      await tc.sendTransaction({
+        validUntil: Math.floor(Date.now() / 1000) + 300,
+        network: '-239',
+        messages: [{
+          address: RECEIVER,
+          amount: (PIXEL_PRICE_NANO + GAS_NANO).toString(),
+        }],
+      });
+      hint.textContent = 'Sent! Your pixel + NFT will appear within a minute or two.';
+      setTimeout(refresh, 15_000);
+      setTimeout(refresh, 45_000);
+      setTimeout(refresh, 90_000);
+    } catch (e) {
+      hint.textContent = 'Transaction was cancelled or failed. Try again.';
+    }
   });
 
   // ─── Copy contract ──────────────────────────────────────────────────
