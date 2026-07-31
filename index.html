@@ -286,21 +286,6 @@
     </div>
   </section>
 
-  <!-- CONTRACT + CTA -->
-  <section id="buy" class="wrap">
-    <p class="eyebrow">Contract</p>
-    <h2>Verify before you send.</h2>
-    <p class="lede">Anyone can fake a ticker. Only one contract is real. Copy from here, not from a group chat.</p>
-    <div class="ca">
-      <label>Contract</label>
-      <code id="ca">COMING SOON — beware of fakes</code>
-      <button type="button" id="copyBtn">Copy</button>
-    </div>
-    <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
-      <a class="btn btn-primary" href="#wall">Adopt 1 dog</a>
-      <a class="btn btn-ghost" href="#manifesto">Read the manifesto</a>
-    </div>
-  </section>
 
 </main>
 
@@ -413,15 +398,6 @@
     }
   });
 
-  // ─── Copy contract ──────────────────────────────────────────────────
-  document.getElementById('copyBtn').addEventListener('click', function(){
-    const text = document.getElementById('ca').textContent.trim();
-    navigator.clipboard.writeText(text).then(function(){
-      const b = document.getElementById('copyBtn');
-      b.textContent = 'Copied';
-      setTimeout(function(){ b.textContent = 'Copy'; }, 1600);
-    });
-  });
 </script>
 </body>
 </html>
