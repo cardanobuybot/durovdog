@@ -1,196 +1,174 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>durov.dog — a meme with serious intentions</title>
-<meta name="description" content="A meme with serious intentions. Sport. Love. Freedom. Multiplication. The kennel wall: 1,000,000 pixels, each an NFT, each a pass to the pack.">
+<title>durov.dog — мем с серьёзными намерениями</title>
+<meta name="description" content="Мем с серьёзными намерениями. Спорт. Любовь. Свобода. Умножение. Стена логова: 1 000 000 пикселей, каждый — NFT в сети TON, каждый — пропуск в стаю.">
 <link rel="icon" href="dog.png">
-<meta property="og:title" content="durov.dog — a meme with serious intentions">
-<meta property="og:description" content="Sport. Love. Freedom. Multiplication. One million pixels. One dog.">
+<meta property="og:title" content="durov.dog — мем с серьёзными намерениями">
+<meta property="og:description" content="Спорт. Любовь. Свобода. Умножение. Один миллион пикселей. Один пёс.">
 <meta property="og:image" content="dog.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/@tonconnect/ui@2/dist/tonconnect-ui.min.js"></script>
 <style>
   :root{
-    --bg:#000;
-    --ink:#fff;
-    --muted:#666;
-    --line:#1a1a1a;
-    --accent:#229ED9; /* Telegram cap blue — единственный акцент */
+    --bg:#0a0a0a;
+    --ink-900:#141414;
+    --ink-800:#1e1e1e;
+    --ink-700:#2a2a2a;
+    --ink-400:#8a8a8a;
+    --white:#fff;
+    --acid:#f5ff3d;
+    --acid-dim:rgba(245,255,61,.13);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  html,body{background:var(--bg);color:var(--ink);min-height:100vh;
-    font-family:"IBM Plex Mono",monospace;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  a{color:inherit}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+  html,body{background:var(--bg);color:var(--white);min-height:100vh;
+    font-family:"Space Grotesk",-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-font-smoothing:antialiased;overflow-x:hidden;line-height:1.5}
+  a{color:inherit;text-decoration:none}
+  .display{font-family:"Unbounded","Space Grotesk",sans-serif}
+
+  /* ── container ── */
+  .wrap{max-width:480px;margin:0 auto;padding:0 16px;width:100%}
 
   /* ── nav ── */
-  nav{
-    position:sticky;top:0;z-index:20;
-    background:rgba(0,0,0,.85);backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:40px;padding:14px 20px;
-    font-size:11px;letter-spacing:.24em;text-transform:uppercase;flex-wrap:nowrap}
-  nav b{font-weight:500;letter-spacing:.12em;white-space:nowrap}
-  nav a{text-decoration:none;color:var(--muted);white-space:nowrap}
-  nav a:hover{color:var(--ink)}
-  nav .nav-links{display:flex;gap:22px;flex-wrap:nowrap}
-  nav .nav-right{display:flex;align-items:center;gap:16px;flex-wrap:nowrap}
-  nav .tg-icon{
-    display:flex;align-items:center;justify-content:center;
-    width:32px;height:32px;color:var(--muted);
-    text-decoration:none;transition:color .15s;
-  }
-  nav .tg-icon:hover{color:var(--accent)}
-  /* TonConnect UI кнопку впихиваем в наш стиль — SDK создаёт внутри своего div */
+  nav{position:sticky;top:0;z-index:20;background:rgba(10,10,10,.95);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--ink-800)}
+  nav .inner{display:flex;align-items:center;justify-content:space-between;height:56px}
+  .brand{display:flex;align-items:center;gap:8px}
+  .brand-dot{font-size:22px;line-height:1}
+  .brand-text{font-family:"Unbounded",sans-serif;font-weight:800;font-size:16px;
+    text-transform:uppercase;letter-spacing:-.01em;line-height:1}
+  nav .right{display:flex;align-items:center;gap:10px}
+  .tg-icon{display:flex;align-items:center;justify-content:center;width:30px;height:30px;
+    color:var(--ink-400);transition:color .15s}
+  .tg-icon:hover{color:var(--acid)}
   #ton-connect-btn{display:flex;align-items:center}
   #ton-connect-btn button{
-    font-family:"IBM Plex Mono",monospace !important;
-    font-size:11px !important;letter-spacing:.2em !important;text-transform:uppercase !important;
-    background:var(--accent) !important;color:var(--ink) !important;
-    padding:8px 14px !important;border-radius:2px !important;border:0 !important
+    font-family:"Space Grotesk",sans-serif !important;
+    font-size:12px !important;font-weight:700 !important;
+    background:var(--acid) !important;color:#0a0a0a !important;
+    padding:7px 12px !important;border-radius:10px !important;border:0 !important;
+    transition:transform .15s !important
   }
-  @media(max-width:520px){
-    nav .wrap{gap:16px}
-    nav .nav-links{display:none} /* на узких — только логотип + кошелёк */
-    #ton-connect-btn button{padding:7px 10px !important;font-size:10px !important}
-  }
+  #ton-connect-btn button:hover{transform:scale(1.03)}
 
   /* ── hero ── */
-  header{padding:56px 20px 80px;text-align:center}
-  .dog{
-    max-width:min(340px,68vw);width:100%;height:auto;margin:0 auto;display:block;
-    filter:drop-shadow(0 0 60px rgba(255,255,255,.06));
-    user-select:none;-webkit-user-drag:none;
-    background:#000;
-  }
-  h1{
-    font-family:"Space Grotesk",sans-serif;font-weight:700;
-    font-size:clamp(52px,13vw,140px);letter-spacing:-.04em;line-height:.9;margin:26px 0 16px
-  }
-  h1 .dot{color:#fff;opacity:.35}
-  .tagline{font-size:13px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted)}
+  .hero{padding:24px 0 8px;text-align:center}
+  .dog-wrap{position:relative;margin:0 auto;width:220px;height:220px;animation:breathe 4s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.025)}}
+  .dog{width:100%;height:100%;object-fit:contain;display:block;
+    filter:drop-shadow(0 0 60px rgba(245,255,61,.08));
+    user-select:none;-webkit-user-drag:none;background:transparent}
+  @media(min-width:420px){.dog-wrap{width:260px;height:260px}}
+  h1{font-family:"Unbounded",sans-serif;font-weight:800;
+    font-size:clamp(34px,10vw,44px);letter-spacing:-.02em;line-height:1.05;
+    margin:16px 0 10px}
+  .dot{color:var(--acid)}
+  .tagline{color:var(--ink-400);font-size:14px;line-height:1.5;max-width:340px;margin:0 auto}
 
   /* ── section shell ── */
-  section{padding:80px 0;border-top:1px solid var(--line)}
-  .eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:22px}
-  h2{
-    font-family:"Space Grotesk",sans-serif;font-weight:700;
-    font-size:clamp(30px,5vw,52px);letter-spacing:-.02em;line-height:1.02;margin-bottom:14px
-  }
-  .lede{color:#a0a0a0;max-width:60ch;font-size:15px;line-height:1.7}
+  section{padding:40px 0}
+  .eyebrow{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--acid);
+    font-weight:700;margin-bottom:12px}
+  h2{font-family:"Unbounded",sans-serif;font-weight:800;font-size:24px;
+    text-transform:uppercase;letter-spacing:-.01em;line-height:1.1;margin-bottom:12px}
+  .lede{color:var(--ink-400);font-size:14px;line-height:1.6}
 
-  /* ── manifesto — 4 pillars ── */
-  .pillars{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);margin-top:36px}
-  @media(min-width:720px){.pillars{grid-template-columns:repeat(2,1fr)}}
-  .pillar{background:var(--bg);padding:32px 26px}
-  .pillar .n{
-    font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);
-    display:flex;justify-content:space-between;align-items:center;margin-bottom:14px
-  }
-  .pillar .n b{color:var(--accent);font-weight:500}
-  .pillar h3{
-    font-family:"Space Grotesk",sans-serif;font-weight:700;
-    font-size:34px;letter-spacing:-.02em;margin-bottom:10px
-  }
-  .pillar p{color:#a0a0a0;font-size:14px;line-height:1.7}
+  /* ── card ── */
+  .card{background:var(--ink-900);border:1px solid var(--ink-800);
+    border-radius:16px;padding:20px}
 
-  /* ── role model ── */
-  .role{margin-top:28px;font-size:16px;line-height:1.75;color:#c5c5c5;max-width:65ch}
-  .role em{color:var(--accent);font-style:normal}
-  .role p+p{margin-top:16px}
+  /* ── wall / canvas ── */
+  .wall-head{display:flex;justify-content:space-between;align-items:center;gap:8px;
+    flex-wrap:wrap;font-size:12px;color:var(--ink-400);margin-bottom:12px}
+  .wall-head b{color:var(--white);font-weight:700}
+  .bar{width:100%;height:3px;background:var(--ink-800);border-radius:999px;overflow:hidden;margin-bottom:12px}
+  .bar>div{height:100%;background:var(--acid);width:0;transition:width .3s ease;border-radius:999px}
+  #wall-canvas{width:100%;aspect-ratio:1/1;background:#000;display:block;
+    border-radius:12px;image-rendering:pixelated;border:1px solid var(--ink-800)}
+  .wall-cta{margin-top:16px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
+  .buy-hint{font-size:12px;color:var(--ink-400);line-height:1.5;max-width:36ch}
 
-  /* ── canvas / kennel wall ── */
-  .wall-box{
-    margin-top:36px;border:1px solid var(--line);background:#0a0a0a;padding:20px
-  }
-  .wall-head{
-    display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;
-    font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);margin-bottom:14px
-  }
-  .wall-head b{color:var(--ink);font-weight:500}
-  .bar{width:100%;height:2px;background:#1a1a1a;overflow:hidden;margin-bottom:14px}
-  .bar>div{height:100%;background:var(--accent);width:0}
-  #wall-canvas{
-    width:100%;aspect-ratio:1/1;background:#000;display:block;
-    border:1px solid #111;image-rendering:pixelated
-  }
-  .wall-cta{margin-top:20px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center}
-  .wall-cta .btn-primary{padding:16px 28px;font-size:13px;letter-spacing:.22em;min-width:min(320px,100%)}
-  .wall-cta .buy-hint{font-size:12px;color:var(--muted);line-height:1.6;max-width:44ch}
-  .wh-val{color:var(--ink);font-weight:500}
-  .btn{
-    font-family:"IBM Plex Mono",monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
-    padding:14px 22px;border-radius:2px;text-decoration:none;display:inline-flex;align-items:center;gap:10px;
-    border:1px solid transparent;cursor:pointer;background:none
-  }
-  .btn-primary{background:var(--ink);color:var(--bg)}
-  .btn-primary:hover{background:var(--accent);color:var(--ink)}
-  .btn[disabled]{opacity:.35;cursor:not-allowed}
-  .btn-ghost{border-color:#333;color:var(--ink)}
-  .btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  /* ── buttons ── */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    font-family:"Space Grotesk",sans-serif;font-size:15px;font-weight:700;
+    padding:14px 24px;border-radius:14px;cursor:pointer;border:0;background:none;
+    transition:transform .15s,background .15s,color .15s}
+  .btn-primary{background:var(--acid);color:#0a0a0a;
+    box-shadow:0 8px 24px -8px rgba(245,255,61,.4);width:100%;max-width:320px}
+  .btn-primary:hover{transform:scale(1.02)}
+  .btn-primary:active{transform:scale(.98)}
+  .btn[disabled]{opacity:.4;cursor:not-allowed;transform:none !important}
 
   /* ── shelter callout ── */
-  .shelter{
-    margin-top:26px;display:flex;gap:20px;align-items:flex-start;
-    background:#0a0a0a;border:1px solid var(--line);padding:22px 22px 24px;
-    border-left:3px solid var(--accent)
-  }
-  .shelter-badge{
-    flex:0 0 auto;font-family:"Space Grotesk",sans-serif;font-weight:700;
-    font-size:44px;line-height:1;color:var(--accent);letter-spacing:-.02em
-  }
-  .shelter-title{
-    font-family:"Space Grotesk",sans-serif;font-weight:500;
-    font-size:18px;line-height:1.3;color:var(--ink);margin-bottom:8px
-  }
-  .shelter-body{font-size:13px;color:#a0a0a0;line-height:1.7}
-  @media(max-width:520px){
-    .shelter{flex-direction:column;gap:10px}
-    .shelter-badge{font-size:36px}
-  }
+  .shelter{margin-top:16px;display:flex;gap:16px;align-items:center;
+    background:var(--ink-900);border:1px solid var(--ink-800);border-left:3px solid var(--acid);
+    padding:18px;border-radius:14px}
+  .shelter-badge{flex:0 0 auto;font-family:"Unbounded",sans-serif;font-weight:800;
+    font-size:36px;line-height:1;color:var(--acid);letter-spacing:-.02em}
+  .shelter-title{font-family:"Unbounded",sans-serif;font-weight:700;
+    font-size:15px;line-height:1.3;color:var(--white);margin-bottom:6px}
+  .shelter-body{font-size:12px;color:var(--ink-400);line-height:1.6}
 
-  /* ── contract row ── */
-  .ca{
-    margin-top:32px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;
-    background:#0a0a0a;border:1px solid var(--line);padding:14px 16px
-  }
-  .ca label{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
-  .ca code{font-size:13px;word-break:break-all;flex:1 1 220px}
-  .ca button{
-    font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;
-    background:var(--ink);color:var(--bg);border:0;padding:9px 14px;border-radius:2px;cursor:pointer
-  }
-  .ca button:hover{background:var(--accent)}
+  /* ── pillars ── */
+  .pillars{display:grid;gap:10px;margin-top:16px}
+  @media(min-width:480px){.pillars{grid-template-columns:repeat(2,1fr)}}
+  .pillar{background:var(--ink-900);border:1px solid var(--ink-800);border-radius:16px;
+    padding:20px;transition:border-color .18s,box-shadow .18s}
+  .pillar:hover{border-color:var(--acid);box-shadow:0 0 0 2px rgba(245,255,61,.1)}
+  .pillar .n{font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-400);display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:12px;font-weight:700}
+  .pillar .n b{color:var(--acid);font-weight:800}
+  .pillar h3{font-family:"Unbounded",sans-serif;font-weight:800;
+    font-size:22px;letter-spacing:-.02em;margin-bottom:8px}
+  .pillar p{color:var(--ink-400);font-size:13px;line-height:1.6}
+
+  /* ── role / membership ── */
+  .prose{color:var(--ink-400);font-size:14px;line-height:1.7;margin-top:12px}
+  .prose em{color:var(--acid);font-style:normal;font-weight:600}
+  .prose p+p{margin-top:12px}
+
+  /* ── FAQ ── */
+  .faq{overflow:hidden;border-radius:16px;background:var(--ink-900);border:1px solid var(--ink-800);
+    margin-top:16px}
+  details{border-bottom:1px solid var(--ink-800)}
+  details:last-child{border-bottom:0}
+  summary{display:flex;cursor:pointer;justify-content:space-between;align-items:flex-start;
+    gap:12px;padding:14px 16px;font-size:14px;font-weight:700;line-height:1.4;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary .plus{color:var(--acid);transition:transform .2s;font-size:18px;font-weight:700;line-height:1}
+  details[open] summary .plus{transform:rotate(45deg)}
+  details p{padding:0 16px 14px;font-size:13px;line-height:1.6;color:var(--ink-400)}
 
   /* ── footer ── */
-  footer{padding:56px 20px 60px;border-top:1px solid var(--line);text-align:center}
-  .links{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-bottom:26px;
-    font-size:11px;letter-spacing:.22em;text-transform:uppercase}
-  .links a{color:var(--muted);text-decoration:none;border-bottom:1px solid #222;padding-bottom:2px}
-  .links a:hover{color:var(--accent);border-color:var(--accent)}
-  .disclaimer{font-size:10px;line-height:1.9;color:#3a3a3a;max-width:78ch;margin:0 auto;letter-spacing:.05em}
+  footer{padding:32px 0 48px;border-top:1px solid var(--ink-800);margin-top:24px}
+  .foot-inner{text-align:center}
+  .foot-links{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;margin-bottom:16px;
+    font-size:12px;color:var(--ink-400)}
+  .foot-links a:hover{color:var(--acid)}
+  .disclaimer{font-size:11px;line-height:1.7;color:#555;max-width:40ch;margin:0 auto}
 
-  a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--acid);outline-offset:3px}
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="wrap">
-    <b>durov.dog</b>
-    <div class="nav-right">
-      <div class="nav-links">
-        <a href="#manifesto">Manifesto</a>
-        <a href="#wall">Buy pixel</a>
-      </div>
-      <a class="tg-icon" href="https://t.me/durovdotdog" target="_blank" rel="noopener" aria-label="Telegram channel">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <div class="wrap inner">
+    <a href="#" class="brand">
+      <span class="brand-dot">🐕</span>
+      <span class="brand-text">durov.dog</span>
+    </a>
+    <div class="right">
+      <a class="tg-icon" href="https://t.me/durovdotdog" target="_blank" rel="noopener" aria-label="Телеграм-канал">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
           <path d="M22.0523 2.24765C21.7727 1.96812 21.4207 1.83155 21.0517 1.83155C20.8687 1.83155 20.6857 1.86529 20.5106 1.93276L1.83145 8.85723C1.44257 9.00113 1.15515 9.34146 1.05625 9.74533C0.957358 10.1492 1.06183 10.5768 1.34115 10.8779L6.05423 15.9505L14.9046 6.09472L8.15039 15.9505L20.3423 22.7188C20.5133 22.815 20.7053 22.8632 20.898 22.8632C21.0637 22.8632 21.2296 22.827 21.3835 22.7546C21.7196 22.5942 21.9553 22.2802 22.0114 21.9138L23.9958 3.24528C24.0532 2.87668 23.9317 2.50331 23.6717 2.24765H22.0523Z" fill="currentColor"/>
         </svg>
       </a>
@@ -199,139 +177,166 @@
   </div>
 </nav>
 
-<header>
-  <video class="dog" src="dog.mp4" poster="dog.png" autoplay muted loop playsinline preload="metadata" aria-label="durov.dog mascot — grumpy buff dog in a Telegram cap and shades"></video>
+<header class="hero wrap">
+  <div class="dog-wrap">
+    <video class="dog" src="dog.mp4" poster="dog.png" autoplay muted loop playsinline preload="metadata" aria-label="Пёс durov.dog — качок в телеграмной кепке и очках"></video>
+  </div>
   <h1>DUROV<span class="dot">.</span>DOG</h1>
-  <p class="tagline">A meme with serious intentions</p>
+  <p class="tagline">Мем с серьёзными намерениями</p>
 </header>
 
-<main>
+<main class="wrap">
 
-  <!-- THE KENNEL WALL — canvas + wallet + buy -->
-  <section id="wall" class="wrap">
-    <p class="eyebrow">The kennel wall</p>
-    <h2>Buy 1 pixel.<br>Support the project.</h2>
-    <p class="lede">One million pixels. Underneath — the pack. Every pixel bought lights up one square, left to right, until the picture is home. Each pixel = one NFT on TON, forever yours.</p>
+  <!-- THE KENNEL WALL -->
+  <section id="wall">
+    <p class="eyebrow">Стена логова</p>
+    <h2>Купи 1 пиксель.<br>Поддержи проект.</h2>
+    <p class="lede">Миллион пикселей. Под ними — стая. Каждый купленный пиксель зажигает одну клетку, слева направо, пока картина не вернётся домой. Каждый пиксель — настоящий NFT на TON, навсегда твой.</p>
 
-    <div class="wall-box">
+    <div class="card" style="margin-top:16px">
       <div class="wall-head">
-        <span>Sold: <b id="sold">0</b> / 1,000,000</span>
-        <span>1 pixel = <b class="wh-val">1 GRAM</b></span>
+        <span>Продано: <b id="sold">0</b> / 1 000 000</span>
+        <span>1 пиксель = <b>1 GRAM</b></span>
       </div>
       <div class="bar"><div id="bar-fill"></div></div>
-      <canvas id="wall-canvas" width="1000" height="1000" aria-label="Kennel wall — a one-million-pixel canvas"></canvas>
+      <canvas id="wall-canvas" width="1000" height="1000" aria-label="Стена логова — холст на миллион пикселей"></canvas>
       <div class="wall-cta">
-        <button class="btn btn-primary" id="buy-btn">Buy 1 pixel · 1 GRAM</button>
-        <p class="buy-hint" id="buy-hint">Connect a TON wallet (button top right), then click Buy. Plus ~0.1 GRAM gas — change returns to you.</p>
+        <button class="btn btn-primary" id="buy-btn">🐾 Купить 1 пиксель · 1 GRAM</button>
+        <p class="buy-hint" id="buy-hint">Подключи TON-кошелёк (кнопка сверху справа) и жми «Купить». Плюс ~0.1 GRAM на газ — сдача вернётся тебе.</p>
       </div>
     </div>
 
     <div class="shelter">
       <div class="shelter-badge">50%</div>
       <div>
-        <p class="shelter-title">Half of every pixel funds the Durov Dog Shelter.</p>
-        <p class="shelter-body">Real kennels, real food, real vets. Wallet address and monthly report published on-chain when the treasury is set up. Receipts, not promises.</p>
+        <p class="shelter-title">Половина каждого пикселя идёт в приют Durov Dog Shelter.</p>
+        <p class="shelter-body">Настоящие вольеры, настоящая еда, настоящие ветеринары. Адрес кошелька и ежемесячный отчёт публикуются on-chain, как только казна будет настроена. Чеки, а не обещания.</p>
       </div>
     </div>
   </section>
 
   <!-- MANIFESTO -->
-  <section id="manifesto" class="wrap">
-    <p class="eyebrow">Manifesto</p>
-    <h2>Four pillars.<br>No fifth.</h2>
-    <p class="lede">This isn't a jpeg with a roadmap. It's a stance you either share or you don't. Every pixel we sell is a signature under these four words.</p>
+  <section id="manifesto">
+    <p class="eyebrow">Манифест</p>
+    <h2>Четыре опоры.<br>Пятой нет.</h2>
+    <p class="lede">Это не jpeg с дорожной картой. Это позиция, которую ты либо разделяешь, либо нет. Каждый проданный пиксель — подпись под этими четырьмя словами.</p>
 
     <div class="pillars">
       <div class="pillar">
-        <div class="n">01 <b>Sport</b></div>
-        <h3>Sport</h3>
-        <p>You train, or you don't exist. The dog is buff because it lifts every day. The founder we admire pushes iron before he pushes code. Weakness is a choice.</p>
+        <div class="n">01 <b>Спорт</b></div>
+        <h3>Спорт</h3>
+        <p>Ты тренируешься — или тебя нет. Пёс качок, потому что каждый день тягает железо. Основатель, которым мы восхищаемся, жмёт штангу раньше, чем жмёт код. Слабость — это выбор.</p>
       </div>
       <div class="pillar">
-        <div class="n">02 <b>Love</b></div>
-        <h3>Love</h3>
-        <p>For the pack. For the people who use the tools you build. For your kids, biological or spiritual. Cynicism is a tax on the tired — the dog doesn't pay it.</p>
+        <div class="n">02 <b>Любовь</b></div>
+        <h3>Любовь</h3>
+        <p>К стае. К людям, которые пользуются тем, что ты строишь. К детям — биологическим или духовным. Цинизм — налог усталых; пёс его не платит.</p>
       </div>
       <div class="pillar">
-        <div class="n">03 <b>Freedom</b></div>
-        <h3>Freedom</h3>
-        <p>Freedom from surveillance. From custody. From permission to speak. Encryption is a civic virtue. A wallet is a fundamental right. Not-your-keys is not a slogan.</p>
+        <div class="n">03 <b>Свобода</b></div>
+        <h3>Свобода</h3>
+        <p>Свобода от слежки. От кастодиалов. От разрешения говорить. Шифрование — гражданская добродетель. Кошелёк — фундаментальное право. «Не твои ключи» — это не слоган.</p>
       </div>
       <div class="pillar">
-        <div class="n">04 <b>Multiplication</b></div>
-        <h3>Multiplication</h3>
-        <p>Descendants — biological, philosophical, tokenised. A hundred children. A hundred million users. A billion tokens. Growth is the only proof that the pack is alive.</p>
+        <div class="n">04 <b>Умножение</b></div>
+        <h3>Умножение</h3>
+        <p>Наследники — биологические, философские, токенизированные. Сто детей. Сто миллионов пользователей. Миллиард токенов. Рост — единственное доказательство, что стая жива.</p>
       </div>
     </div>
   </section>
 
-  <!-- THE ROLE MODEL -->
-  <section class="wrap">
-    <p class="eyebrow">The role model</p>
-    <h2>The archetype we chase.</h2>
-    <div class="role">
-      <p>The founder of <em>Telegram</em>. Of the <em>TON</em> blockchain. Of the <em>GRAM</em> token. He is not our founder — he is our <em>reference</em>. We take him as the shape a life is supposed to have.</p>
-      <p>He built. He trained. He stayed private. He held the line against governments and against custody. He kept multiplying — users, ideas, offspring. That is the pedigree we chase.</p>
-      <p>The dog on this page is not him. The dog is us, when we finally take the hint.</p>
+  <!-- ROLE MODEL -->
+  <section>
+    <p class="eyebrow">Ролевая модель</p>
+    <h2>Архетип, за которым гонимся.</h2>
+    <div class="prose">
+      <p>Основатель <em>Telegram</em>. Блокчейна <em>TON</em>. Токена <em>GRAM</em>. Он не наш основатель — он наш <em>ориентир</em>. Мы берём его как форму, которую должна принять жизнь.</p>
+      <p>Он строил. Он тренировался. Он остался приватным. Он держал линию против государств и против кастодиалов. Он продолжал умножаться — пользователями, идеями, потомством. Это та родословная, за которой мы гонимся.</p>
+      <p>Пёс на этой странице — не он. Пёс — это мы, когда наконец услышим подсказку.</p>
     </div>
   </section>
 
   <!-- MEMBERSHIP -->
-  <section class="wrap">
-    <p class="eyebrow">Membership</p>
-    <h2>Owning a pixel is<br>your kennel pass.</h2>
-    <div class="role">
-      <p>Every pixel is minted as a real <em>NFT</em> on TON — instantly tradable on Getgems, verifiable on the chain, no committee to approve you.</p>
-      <p>The NFT is your <em>entry pass</em> to the club. Holders get: early word on drops, private Telegram channel, priority for future merch and events, and the right to say "I was there before it made sense."</p>
+  <section>
+    <p class="eyebrow">Пропуск</p>
+    <h2>Пиксель — твой<br>пропуск в логово.</h2>
+    <div class="prose">
+      <p>Каждый пиксель минтится как настоящий <em>NFT</em> на TON — мгновенно торгуется на Getgems, проверяется в блокчейне, никакой комиссии «одобрить тебя».</p>
+      <p>NFT — твой <em>пропуск</em> в клуб. Держателям положено: ранний анонс дропов, приватный Telegram-канал, приоритет на будущий мерч и события, и право сказать «я был здесь раньше, чем это стало очевидно».</p>
     </div>
   </section>
 
+  <!-- FAQ -->
+  <section>
+    <p class="eyebrow">FAQ</p>
+    <h2>Коротко о сути.</h2>
+    <div class="faq">
+      <details>
+        <summary><span>Что я реально получаю, когда покупаю пиксель?</span><span class="plus">+</span></summary>
+        <p>NFT в сети TON с указанием позиции на стене. Он твой: лежит в твоём кошельке, торгуется на Getgems, виден в Tonkeeper и tonviewer.</p>
+      </details>
+      <details>
+        <summary><span>Почему 1 GRAM, а не 1 TON?</span><span class="plus">+</span></summary>
+        <p>GRAM — это нативный токен сети TON (бывший Toncoin). Это одно и то же, просто новое имя. 1 GRAM = 1 TON.</p>
+      </details>
+      <details>
+        <summary><span>Куда идут мои деньги?</span><span class="plus">+</span></summary>
+        <p>50% — на приют Durov Dog Shelter. Остальное — на разработку, маркетинг и операционку проекта. Когда казна приюта будет на отдельном on-chain кошельке, его адрес и месячные отчёты будут опубликованы на этой странице.</p>
+      </details>
+      <details>
+        <summary><span>Это аффилировано с Павлом Дуровым или Telegram?</span><span class="plus">+</span></summary>
+        <p>Нет. Это пародия и уличное искусство в блокчейне. Мы не связаны с Telegram, TON Foundation или Павлом Дуровым. Он — наша ролевая модель, а не наш партнёр.</p>
+      </details>
+      <details>
+        <summary><span>Что если я куплю пиксель, а потом захочу продать?</span><span class="plus">+</span></summary>
+        <p>Жми на Getgems, выставляй цену, жди покупателя. Это обычный NFT — хочешь держать, хочешь продать. Твоя воля.</p>
+      </details>
+      <details>
+        <summary><span>Это может уйти в ноль?</span><span class="plus">+</span></summary>
+        <p>Легко. Мемкоины и мем-NFT регулярно уходят в ноль. Покупай только на сумму, которую готов потерять без слёз. Это не финансовый совет и не инвестиционный инструмент.</p>
+      </details>
+    </div>
+  </section>
 
 </main>
 
 <footer>
-  <div class="links">
-    <a href="https://t.me/durovdotdog" target="_blank" rel="noopener">Telegram</a><a href="https://getgems.io/collection/EQBDILHY6cBD61Ezga5cxVxErTu4BqyPtvxeZjxMcNYS-c5b" target="_blank" rel="noopener">Getgems</a>
+  <div class="wrap foot-inner">
+    <div class="foot-links">
+      <a href="https://t.me/durovdotdog" target="_blank" rel="noopener">Telegram</a>
+      <a href="https://getgems.io/collection/EQBDILHY6cBD61Ezga5cxVxErTu4BqyPtvxeZjxMcNYS-c5b" target="_blank" rel="noopener">Getgems</a>
+    </div>
+    <p class="disclaimer">
+      durov.dog — пародийный мемкоин и интернет-шутка. Не аффилирован, не одобрен и не связан с любым реальным человеком, мессенджером, компанией или фондом. У токена нет полезности, нет дорожной карты, которой можно доверять, нет команды, которая тебе чем-то обязана, и нет ожидания прибыли. Мемкоины регулярно уходят в ноль. Проверяй адрес контракта сам, относись к каждой ссылке как к потенциально враждебной, пока не проверил. Ничего здесь не является финансовым советом.
+    </p>
   </div>
-  <p class="disclaimer">
-    durov.dog is a parody memecoin and an internet joke. It is not affiliated with, endorsed by,
-    or connected to any real person, messenger, company or foundation. The token has no utility,
-    no roadmap you should rely on, no team behind it that owes you anything, and no expectation
-    of profit. Memecoins routinely go to zero. Verify the contract address yourself, treat every
-    link as hostile until you've checked it. Nothing here is financial advice.
-  </p>
 </footer>
 
 <script>
-  // ─── Config ─────────────────────────────────────────────────────────
   const TOTAL = 1_000_000;
-  // Наш собственный Tact-контракт коллекции (v2 задеплоен 2026-10-03).
-  // v2 fix: PixelItem при минте шлёт OwnershipAssigned покупателю (TEP-62) —
-  // без этого Tonkeeper не видел новые NFT.
-  // Всё атомарно: принимает 1.1 GRAM, минтит NFT-item, шлёт его покупателю.
+  // Tact-контракт v2 (задеплоен 2026-10-03). PixelItem шлёт OwnershipAssigned
+  // покупателю (TEP-62) — теперь Tonkeeper корректно индексирует новые NFT.
   const CONTRACT = 'EQBDILHY6cBD61Ezga5cxVxErTu4BqyPtvxeZjxMcNYS-c5b';
   const PIXEL_PRICE_NANO = 1000000000n; // 1 GRAM
-  const GAS_NANO = 100000000n;          // 0.1 GRAM buffer
+  const GAS_NANO = 100000000n;          // 0.1 GRAM запас
   let sold = 0;
 
-  // BuyPixels op 0x100 payload cell (forked из kazantip, идентичный формат)
+  // BuyPixels op 0x100 payload cell
   function buyPayload(count) {
     const data = new Uint8Array([
       0xb5, 0xee, 0x9c, 0x72, 0x01, 0x01, 0x01, 0x01, 0x00, 0x0a,
-      0x00, 0x00, 0x10, // d1, d2 (64 bits)
-      0x00, 0x00, 0x01, 0x00, // op = 0x00000100
+      0x00, 0x00, 0x10,
+      0x00, 0x00, 0x01, 0x00,
       (count >>> 24) & 0xff, (count >>> 16) & 0xff, (count >>> 8) & 0xff, count & 0xff,
     ]);
     return btoa(String.fromCharCode.apply(null, data));
   }
 
-  // ─── TonConnect ─────────────────────────────────────────────────────
   const tc = new TON_CONNECT_UI.TonConnectUI({
     manifestUrl: 'https://durov.dog/tonconnect-manifest.json',
     buttonRootId: 'ton-connect-btn',
   });
 
-  // ─── Wall rendering — column-by-column reveal, left to right ────────
   const bgImg = new Image();
   bgImg.crossOrigin = 'anonymous';
   bgImg.src = 'bg.png';
@@ -340,11 +345,9 @@
     const c = document.getElementById('wall-canvas');
     if (!c || !c.getContext) return;
     const ctx = c.getContext('2d');
-    // всегда сначала чёрный
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, 1000, 1000);
     if (!bgImg.complete || bgImg.naturalWidth === 0) return;
-    // Открываем колонками (1000px высотой) слева направо + текущую партиалку
     const fullCols = Math.floor(sold / 1000);
     const partial  = sold % 1000;
     if (fullCols > 0) ctx.drawImage(bgImg, 0, 0, fullCols, 1000, 0, 0, fullCols, 1000);
@@ -353,11 +356,10 @@
   bgImg.onload = drawWall;
 
   function updateCounter(){
-    document.getElementById('sold').textContent = sold.toLocaleString('en-US');
+    document.getElementById('sold').textContent = sold.toLocaleString('ru-RU');
     document.getElementById('bar-fill').style.width = ((sold / TOTAL) * 100) + '%';
   }
 
-  // ─── Counter refresh — читаем /api/pixels-sold ──────────────────────
   async function refresh(){
     try {
       const r = await fetch('/api/pixels-sold', { cache: 'no-store' });
@@ -372,16 +374,15 @@
   refresh();
   setInterval(refresh, 30_000);
 
-  // ─── Buy 1 pixel ────────────────────────────────────────────────────
   document.getElementById('buy-btn').addEventListener('click', async () => {
     const hint = document.getElementById('buy-hint');
     if (!tc.connected) {
       await tc.openModal();
-      hint.textContent = 'Wallet connected — click Buy again to send 1.1 GRAM.';
+      hint.textContent = 'Кошелёк подключён — нажми «Купить» ещё раз, чтобы отправить 1.1 GRAM.';
       return;
     }
     try {
-      hint.textContent = 'Confirm the transaction in your wallet…';
+      hint.textContent = 'Подтверди транзакцию в кошельке…';
       await tc.sendTransaction({
         validUntil: Math.floor(Date.now() / 1000) + 300,
         network: '-239',
@@ -391,15 +392,14 @@
           payload: buyPayload(1),
         }],
       });
-      hint.textContent = 'Sent! Your pixel + NFT will appear within ~30 seconds.';
+      hint.textContent = 'Отправлено! Пиксель и NFT появятся примерно через 30 секунд.';
       setTimeout(refresh, 10_000);
       setTimeout(refresh, 25_000);
       setTimeout(refresh, 60_000);
     } catch (e) {
-      hint.textContent = 'Transaction was cancelled or failed. Try again.';
+      hint.textContent = 'Транзакция отменена или не прошла. Попробуй ещё раз.';
     }
   });
-
 </script>
 </body>
 </html>
