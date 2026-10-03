@@ -2,7 +2,7 @@
 //   Читает getter `pixels_sold` смарт-контракта коллекции. Один HTTP-запрос,
 //   ground-truth из блокчейна, ~15 сек CDN-кэш.
 
-const CONTRACT = process.env.PIXEL_CONTRACT || 'EQBoX6dWBxYGrJBU5D2IewnTnDPR8qoJVGGMLcTJH5lgiQrY';
+const CONTRACT = process.env.PIXEL_CONTRACT || 'EQBDILHY6cBD61Ezga5cxVxErTu4BqyPtvxeZjxMcNYS-c5b';
 const TOTAL = 1_000_000;
 
 export default async function handler(req, res) {

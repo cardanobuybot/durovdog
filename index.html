@@ -291,7 +291,7 @@
 
 <footer>
   <div class="links">
-    <a href="https://t.me/durovdotdog" target="_blank" rel="noopener">Telegram</a><a href="https://getgems.io/collection/EQBoX6dWBxYGrJBU5D2IewnTnDPR8qoJVGGMLcTJH5lgiQrY" target="_blank" rel="noopener">Getgems</a>
+    <a href="https://t.me/durovdotdog" target="_blank" rel="noopener">Telegram</a><a href="https://getgems.io/collection/EQBDILHY6cBD61Ezga5cxVxErTu4BqyPtvxeZjxMcNYS-c5b" target="_blank" rel="noopener">Getgems</a>
   </div>
   <p class="disclaimer">
     durov.dog is a parody memecoin and an internet joke. It is not affiliated with, endorsed by,
@@ -305,9 +305,11 @@
 <script>
   // ─── Config ─────────────────────────────────────────────────────────
   const TOTAL = 1_000_000;
-  // Наш собственный Tact-контракт коллекции (задеплоен 2026-07-29).
+  // Наш собственный Tact-контракт коллекции (v2 задеплоен 2026-10-03).
+  // v2 fix: PixelItem при минте шлёт OwnershipAssigned покупателю (TEP-62) —
+  // без этого Tonkeeper не видел новые NFT.
   // Всё атомарно: принимает 1.1 GRAM, минтит NFT-item, шлёт его покупателю.
-  const CONTRACT = 'EQBoX6dWBxYGrJBU5D2IewnTnDPR8qoJVGGMLcTJH5lgiQrY';
+  const CONTRACT = 'EQBDILHY6cBD61Ezga5cxVxErTu4BqyPtvxeZjxMcNYS-c5b';
   const PIXEL_PRICE_NANO = 1000000000n; // 1 GRAM
   const GAS_NANO = 100000000n;          // 0.1 GRAM buffer
   let sold = 0;

@@ -3,7 +3,7 @@
 //   Getgems/Tonviewer читают этот URL из get_nft_content() контракта.
 //   Content-Type: application/json. Кэш 5 мин / 24ч SWR.
 
-const CONTRACT = process.env.PIXEL_CONTRACT || 'EQBoX6dWBxYGrJBU5D2IewnTnDPR8qoJVGGMLcTJH5lgiQrY';
+const CONTRACT = process.env.PIXEL_CONTRACT || 'EQBDILHY6cBD61Ezga5cxVxErTu4BqyPtvxeZjxMcNYS-c5b';
 const TONAPI = 'https://tonapi.io';
 const IMAGE = 'https://durov.dog/bg.png';
 
