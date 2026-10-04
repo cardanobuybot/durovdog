@@ -116,6 +116,18 @@
     font-size:15px;line-height:1.3;color:var(--white);margin-bottom:6px}
   .shelter-body{font-size:12px;color:var(--ink-400);line-height:1.6}
 
+  /* ── stars.dog cross-promo card ── */
+  .stars-card{position:relative;overflow:hidden;background:var(--ink-900);
+    border:1px solid var(--acid);border-radius:16px;padding:22px;
+    box-shadow:0 0 0 3px rgba(245,255,61,.08)}
+  .stars-badge{position:absolute;top:14px;right:16px;font-size:28px;line-height:1;opacity:.4}
+  .stars-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--acid);font-weight:800;margin-bottom:8px}
+  .stars-title{font-family:"Unbounded",sans-serif;font-weight:800;font-size:20px;
+    line-height:1.15;letter-spacing:-.01em;margin-bottom:8px;color:var(--white)}
+  .stars-sub{font-size:13px;line-height:1.6;color:var(--ink-400);margin-bottom:16px}
+  .stars-cta{width:100%;max-width:none;font-size:14px}
+
   /* ── pillars ── */
   .pillars{display:grid;gap:10px;margin-top:16px}
   @media(min-width:480px){.pillars{grid-template-columns:repeat(2,1fr)}}
@@ -209,8 +221,21 @@
     <div class="shelter">
       <div class="shelter-badge">50%</div>
       <div>
-        <p class="shelter-title">Половина каждого пикселя идёт в приют Durov Dog Shelter.</p>
-        <p class="shelter-body">Настоящие вольеры, настоящая еда, настоящие ветеринары. Адрес кошелька и ежемесячный отчёт публикуются on-chain, как только казна будет настроена. Чеки, а не обещания.</p>
+        <p class="shelter-title">Половина каждого пикселя идёт в общак стаи.</p>
+        <p class="shelter-body">Отдельный on-chain кошелёк, виден через tonviewer. Деньги уходят на buyback NFT на Getgems (поднимает флор), мерч держателям, продвижение, события. Отчёт раз в месяц в Telegram-канале. Публичный, проверяемый, без «честного слова».</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STARS CROSS-PROMO — tight link with stars.dog bot -->
+  <section id="stars">
+    <div class="stars-card">
+      <div class="stars-badge">⭐</div>
+      <div class="stars-body">
+        <p class="stars-eyebrow">Партнёр стаи</p>
+        <h3 class="stars-title">Нужны Telegram Stars?<br>Купи у своих — за GRAM.</h3>
+        <p class="stars-sub">stars.dog — наш бот-побратим. Шлёшь GRAM с memo, он закупает Stars на Fragment и отгружает на твой @username. Выгодный курс, без KYC, минута.</p>
+        <a class="btn btn-primary stars-cta" href="https://t.me/stars_dog_bot?start=src_durovdog" target="_blank" rel="noopener">⭐ Купить Telegram Stars</a>
       </div>
     </div>
   </section>
